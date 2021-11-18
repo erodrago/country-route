@@ -18,6 +18,9 @@ public class PathFinder {
     private final Set<String> visited = new HashSet<>();
     private final Map<String, String> toFromMap = new HashMap<>();
 
+    /**
+     * Utilizes breadth first algorithm to find the shortest path from origin to destination
+     */
     public List<String> findPath() throws PathNotFoundException {
         Country currentCountry = origin;
 
@@ -32,14 +35,14 @@ public class PathFinder {
 
         outer: while(!queue.isEmpty()) {
             currentCountry = queue.remove();
-            log.info("Visiting "+ currentCountry.getName());
+            log.debug("Visiting "+ currentCountry.getName());
 
-            for(String neigh: currentCountry.getBorders()){
+            for(String border: currentCountry.getBorders()){
 
-                if(!visited.contains(neigh)) {
-                    visited.add(neigh);
+                if(!visited.contains(border)) {
+                    visited.add(border);
 
-                    Country neighCountry = countriesMap.get(neigh);
+                    Country neighCountry = countriesMap.get(border);
                     queue.add(neighCountry);
                     toFromMap.put(neighCountry.getName(), currentCountry.getName());
 
@@ -54,6 +57,7 @@ public class PathFinder {
         }
 
         if(!currentCountry.equals(destination)) {
+            log.error("No path found");
             throw new PathNotFoundException("No path found");
         }
 
