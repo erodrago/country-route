@@ -1,4 +1,12 @@
 package com.bcf.ero.countryroutes.exception;
 
-public class PathNotFound {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+public class PathNotFoundException extends Exception{
+
+    public PathNotFoundException(String message){
+        super(message);
+    }
 }
