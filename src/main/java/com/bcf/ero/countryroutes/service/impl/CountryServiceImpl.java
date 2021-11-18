@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 import static org.springframework.http.HttpMethod.GET;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CountryServiceImpl implements CountryService {
 
     @Value("${data.url}")
     private String url;
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     @Override
     public Map<String, Country> getCountries() {
